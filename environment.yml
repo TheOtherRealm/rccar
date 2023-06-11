@@ -1,0 +1,32 @@
+name: car
+channels:
+  - conda-forge
+dependencies:
+- python
+- numpy
+- pip
+- numpy
+- scipy
+- matplotlib
+- sympy
+- ipython
+- ipykernel
+- ipyvtklink
+- nbconvert
+- pandas
+- panel
+- scikit-learn
+- cma
+- cadquery
+- flask
+- ipyvolume
+- fvcore
+- iopath
+- plotly
+- pywin32
+- quaternion
+pip:
+  - git+https://github.com/gumyr/build123d
+  - git+https://github.com/meadiode/cq_gears.git@main
+  - ocp-vscode
+  - cadquery-massembly
