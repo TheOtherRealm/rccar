@@ -11,7 +11,7 @@
 	],
 	"python.defaultInterpreterPath": "C:\\Users\\Someone\\micromamba\\envs\\car\\python.exe",
 	"python.linting.pycodestyleEnabled": false,
-	"python.linting.enabled": true,
+	"python.linting.enabled": false,
 	"python.analysis.autoImportCompletions": true,
 	"python.linting.pylintArgs": [
 		"--init-hook",
@@ -24,7 +24,7 @@
 	"matlab-interactive-terminal.pythonPath": "C:\\Users\\Someone\\micromamba\\envs\\car\\",
 	"cmake.configureOnOpen": true,
 	"files.autoSave": "afterDelay",
-	"python.analysis.typeCheckingMode": "basic",
+	"python.analysis.typeCheckingMode": "off",
 	"jupyter.widgetScriptSources": [
 		"jsdelivr.com",
 		"unpkg.com"

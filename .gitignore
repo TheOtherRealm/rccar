@@ -189,3 +189,7 @@ Economics/
 .pdf
 .tmp
 Modules/
+
+#Filter out things that are auto generated
+*.stl
+*.step
