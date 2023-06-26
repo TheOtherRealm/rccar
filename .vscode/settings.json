@@ -29,6 +29,16 @@
 		"jsdelivr.com",
 		"unpkg.com"
 	],
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/node_modules/*/**": true,
+		"*.stl":true,
+		"*.step":true,
+		"*.STEP":true,
+		"*.exe":true,
+		"*/.history/**":true
+	  },
 	"MicroPython.executeButton": [
 		{
 			"text": "▶",

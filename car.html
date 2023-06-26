@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Controls</title>
+</head>
+<body>
+    <div style='text-align: center;font-size: xx-large;width: auto;'>
+        <div>
+            <button style='font-size: 3em;' class='dirBut' data-dir='f' id='forward'>Forward</button>
+        </div>
+        <div style="width: auto;">
+            <button style='font-size: 3em;width:30%;' class='dirBut' data-dir='l' id='left'>Left</button>
+            <button style='font-size: 3em;width:30%;' class='dirBut' data-dir='s' id='stop'>Stop</button> 
+            <button style='font-size: 3em;width:30%;' class='dirBut' data-dir='r' id='right'>Right</button>
+        </div>
+        <div>
+            <button style='font-size: 3em;' class='dirBut' data-dir='b' id='back'>Back</button>
+        </div>
+    </div>
+    <div style='text-align: center;font-size: 3em;'> Direction: <span id='dir_display'></span>
+    </div>
+    <script>
+        function startup() {
+            const direct = document.querySelectorAll('.dirBut');
+            direct.forEach((but) => {
+                but.addEventListener('mousedown', buttonPressed);
+                but.addEventListener('touchstart', buttonPressed);
+                but.addEventListener('touchend', buttonReleased);
+                but.addEventListener('mouseup', buttonReleased);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', startup);
+        function buttonPressed(but) {
+            but.preventDefault();
+            const dirDisplay = document.querySelector('#dir_display');
+            if(window.location.hash=='#s'){
+                window.location.hash='';
+                dirDisplay.innerHTML ='';
+            }
+            console.log(window.location.hash);
+            dirDisplay.innerHTML = dirDisplay.innerHTML + but.target.dataset.dir
+            window.location.hash = dirDisplay.innerHTML
+            const req = new XMLHttpRequest();
+            req.addEventListener("load", reqListener);
+            req.open("GET", but.target.dataset.dir);
+            req.send(but.target.dataset.dir);
+        }
+        function buttonReleased(but) {
+            but.preventDefault();
+            const dirDisplay = document.querySelector('#dir_display');
+            window.location.hash = 's';
+            // console.log(but);
+            dirDisplay.innerHTML = 's';
+            const req = new XMLHttpRequest();
+            req.addEventListener("load", reqListener);
+            req.open("GET", 's');
+            req.send('s');
+        }
+        function reqListener() {
+            // console.log(this.responseText);
+        }
+    </script>
+</body>
+</html>
