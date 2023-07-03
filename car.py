@@ -20,8 +20,6 @@ import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 os.add_dll_directory("C:\\Users\\Someone\\micromamba\\envs\\oshoe\\Lib\\site-packages\\win32\\")
 os.add_dll_directory("c:/Users/Someone/micromamba/envs/oshoe/lib/site-packages/cadquery/")
-# from scipy.optimize import fsolve
-# from latex2sympy2 import latex2sympy
 from sympy.physics.units.quantities import Quantity
 from IPython.display import Image
 from IPython.display import display
@@ -29,11 +27,6 @@ from IPython.core.interactiveshell import InteractiveShell
 from nbconvert.preprocessors import ExecutePreprocessor
 import matplotlib.pyplot as plt
 import numpy as np
-# import scipy as sc
-# import scipy.linalg as li
-# import sympy as sy
-# from scipy.integrate import odeint
-# from sympy.parsing.latex import parse_latex
 from re import T
 import cadquery as cq
 from cq_warehouse.sprocket import Sprocket
@@ -41,7 +34,6 @@ import cq_warehouse as cqw
 from cq_warehouse.fastener import *
 import cq_warehouse.extensions
 from cadquery import exporters
-# import matplotlib
 import matplotlib.pyplot as plt
 from IPython.display import Image
 from IPython.display import display
@@ -58,13 +50,10 @@ from cq_gears import (SpurGear, HerringboneGear, RackGear, HerringboneRackGear,
 from cq_gears import SpurGear, HerringboneGear, RackGear, HerringboneRackGear
 from math import pi
 import copy
-# from jupyter_cadquery import Part, PartGroup, show, open_viewer
 plt.rcParams['figure.figsize'] = [9, 9]
 InteractiveShell.ast_node_interactivity = "all"
 np.random.default_rng()
 np.set_printoptions(suppress=True)
-def scaleMe(self: T, howMuch) -> T:
-    return self.scale(howMuch)
 def cq2b3d(cq_obj):
     """Convert a CADQuery solid to a Build123d solid
     Args:
@@ -172,10 +161,6 @@ holes = [
          Cylinder(1.2,40).transformed((0,0,0), (57.5,-23,1.5)),
          Cylinder(1.2,40).transformed((0,0,0), (82.5,-10,1.5)),
          Cylinder(1.2,40).transformed((0,0,0), (57.5,-10,1.5))]
-# Cylinder(1.2, 4).transformed((0, 0, 0), (0, -20, 0)),
-#          Cylinder(1.2, 4).transformed((0, 0, 0), (0, 20, 0)),
-#          Cylinder(1.2, 4).transformed((0, 0, 0), (-70,0,  0)),
-#          Cylinder(1.2, 4).transformed((0, 0, 0), (70,0,  0)),
 alignBox = (Align.CENTER, Align.CENTER, Align.MIN)
 # %% ###Turning Rod###
 turningConnectorDim=[(4,43),(0,43),(0,20),(8,10),(8,-10),(0,-20),(0,-43),(4,-43),(4,-20),(12,-10),(12,10),(4,20)]
@@ -208,7 +193,6 @@ frontAxleDim=[(0,0),(10,25),(10,0)]
 frontAxle=extrude(Polygon(*frontAxleDim,align=(Align.MIN,Align.MIN)),2)
 frontAxle=fillet(frontAxle.edges().filter_by(Axis.Z)[1],2.6)\
     -Cylinder(1.2,6).transformed((0,0,0),(7.5,10,-1.5))
-# frontAxle
 ###Actual Front Axle and other turning thing###
 actualAxle=Box(4,4,11,align=(Align.CENTER, Align.CENTER, Align.CENTER)).transformed((0,0,0,),(0,0,-2))\
     +Box(8.5,4,3,align=(Align.MAX, Align.CENTER, Align.CENTER)).transformed((0,0,0),(0,0,0))\
@@ -216,9 +200,6 @@ actualAxle=Box(4,4,11,align=(Align.CENTER, Align.CENTER, Align.CENTER)).transfor
     +Cylinder(2,10,align=(Align.MIN, Align.MIN, Align.CENTER)).transformed((90,0,0),(-2,-7,-2))\
     -Cylinder(1.2,20).transformed((0,0,0),(0,0,0))
 actualAxle
-# actualAxle
-    # +loft([Circle(1).transformed((0,0,0),((-difference_between_farther_gears/2)+3.25,0,4)),Circle(1).transformed((0,0,0),((-difference_between_farther_gears/2)+3.25,-3,7))])\    # +loft([Circle(.75).transformed((0,0,0),(0,0,4.5)),Circle(.75).transformed((0,0,0),(3,0,7.5))])\
-    # +loft([Circle(.75).transformed((0,0,0),(0,0,-4.5)),Circle(.75).transformed((0,0,0),(3,0,-7.5))])\
 #%% ###Rear Axel Attachment###
 rAxle=Cylinder(1.4,90)
 yHeight=np.abs(rearBGearRadAtAngleY*2-1.5)
@@ -246,9 +227,6 @@ frontWheel=wheel+Cylinder(3,5,align=(Align.CENTER,Align.CENTER,Align.MIN))\
     -Cylinder(2.2,5,align=(Align.CENTER,Align.CENTER,Align.MIN))
 backWheel=wheel+Cylinder(3,5,align=(Align.CENTER,Align.CENTER,Align.MIN))\
     -Cylinder(1.2,5,align=(Align.CENTER,Align.CENTER,Align.MIN))
-# ###Connecting Cylinders###
-# rod=Cylinder(2,4.5,align=(Align.CENTER,Align.CENTER,Align.MAX))- Cylinder(1.5,5,align=(Align.CENTER,Align.CENTER,Align.MAX))
-# botRod=Cylinder(1.5,2,align=(Align.CENTER,Align.CENTER,Align.MAX))+Cylinder(1,4,align=(Align.CENTER,Align.CENTER,Align.MIN))
 #%% ###Chassis Assembly###
 chassis =Box(length=218, width=63, height=7.5, align=alignBox).transformed((180,0,0),(0,0,1.5))
 chassis=fillet(chassis.edges().filter_by(Axis.Z),15)
@@ -270,28 +248,27 @@ chassis=chassis\
     +frontAxle.transformed((0,0,180),(-58-difference_between_farther_gears,-30,1.5))\
     +frontAxle.mirror(Plane.XZ).transformed((0,0,180),(-58-difference_between_farther_gears,30,1.5))\
     - mHolderHoll.transformed((0, 0, -90), (-70, difference_between_closer_gears, -8))\
-    # + mHolder.transformed((0, 0, -90), (-70, difference_between_closer_gears, -8))\
-    # + frontMotor.transformed((0, 0, 0), (-70, difference_between_closer_gears, -8))\
-    # + rMotorAssemb.transformed((0,0,0), (70,0,0))\
-    # + motorGear.transformed((0,0,0),(-70, difference_between_closer_gears, -4))\
-    # + ratioGear.transformed((0,0,0),(-70, 0, -2))\
-    # + smallGear.transformed((0,0,0),(-70, 0, -6))\
-    # + turnGear.transformed((0, 0, 0), (-70-difference_between_farther_gears,0, -6))\
-    # +turningConnector.transformed((0,0,0),(0,0,-4))\
-    # +actualAxle.transformed((0,0,0),(-65.5-difference_between_farther_gears,-40,-3))\
-    # +actualAxle.mirror(Plane.XZ).transformed((0,0,0),(-65.5-difference_between_farther_gears,40,-3))\
-    # +bWMotorGear.transformed((90,0,0),(70,4,11.5))\
-    # +bMotorGear.transformed((90,0,0),(rearBGearRadAtAngleX,4,rearBGearRadAtAngleY))\
-    # +rAxle.transformed((90,0,0),(rearBGearRadAtAngleX,0,rearBGearRadAtAngleY))\
-    # +rAxSupport.transformed((0,0,0),(0,16.5,0))\
-    # +rAxSupport.transformed((0,0,0),(0,-16.5,0))\
-    # +copy.copy(backWheel).transformed((90,0,0),(rearBGearRadAtAngleX,45,rearBGearRadAtAngleY))\
-    # +copy.copy(backWheel).transformed((-90,0,0),(rearBGearRadAtAngleX,-45,rearBGearRadAtAngleY))\
-    # +copy.copy(frontWheel).transformed((90,0,0),(-65.5-difference_between_farther_gears,50,-3))\
-    # +copy.copy(frontWheel).transformed((-90,0,0),(-65.5-difference_between_farther_gears,-50,-3))
+    + mHolder.transformed((0, 0, -90), (-70, difference_between_closer_gears, -8))\
+    + frontMotor.transformed((0, 0, 0), (-70, difference_between_closer_gears, -8))\
+    + rMotorAssemb.transformed((0,0,0), (70,0,0))\
+    + motorGear.transformed((0,0,0),(-70, difference_between_closer_gears, -4))\
+    + ratioGear.transformed((0,0,0),(-70, 0, -2))\
+    + smallGear.transformed((0,0,0),(-70, 0, -6))\
+    + turnGear.transformed((0, 0, 0), (-70-difference_between_farther_gears,0, -6))\
+    +turningConnector.transformed((0,0,0),(0,0,-4))\
+    +actualAxle.transformed((0,0,0),(-65.5-difference_between_farther_gears,-40,-3))\
+    +actualAxle.mirror(Plane.XZ).transformed((0,0,0),(-65.5-difference_between_farther_gears,40,-3))\
+    +bWMotorGear.transformed((90,0,0),(70,4,11.5))\
+    +bMotorGear.transformed((90,0,0),(rearBGearRadAtAngleX,4,rearBGearRadAtAngleY))\
+    +rAxle.transformed((90,0,0),(rearBGearRadAtAngleX,0,rearBGearRadAtAngleY))\
+    +rAxSupport.transformed((0,0,0),(0,16.5,0))\
+    +rAxSupport.transformed((0,0,0),(0,-16.5,0))\
+    +copy.copy(backWheel).transformed((90,0,0),(rearBGearRadAtAngleX,45,rearBGearRadAtAngleY))\
+    +copy.copy(backWheel).transformed((-90,0,0),(rearBGearRadAtAngleX,-45,rearBGearRadAtAngleY))\
+    +copy.copy(frontWheel).transformed((90,0,0),(-65.5-difference_between_farther_gears,50,-3))\
+    +copy.copy(frontWheel).transformed((-90,0,0),(-65.5-difference_between_farther_gears,-50,-3))
 chassis
-#     # + boltM235.transformed((0,0,0), (52.5,-23,24.5))
-bWMotorGear.export_stl('bWMGear2023-06-26-1521.stl')
+# bWMotorGear.export_stl('bWMGear2023-06-26-1521.stl')
 # rMotorAssemb.export_stl('rMotorAssemb2023-06-07-1405.stl')
 # motorGear.export_stl('motorGear2023-06-26-1521.stl')
 # (ratioGear.transformed((0,0,0),(0, 0, -2))+smallGear.transformed((0,0,0),(0, 0, -6))).export_stl('ratioGear2023-06-26-1521.stl')
@@ -301,46 +278,16 @@ bWMotorGear.export_stl('bWMGear2023-06-26-1521.stl')
 # axle2=actualAxle.mirror(Plane.XZ)
 # axel1.export_stl('axle1_2023-06-26-1521.stl')
 # axle2.export_stl('axle2_2023-06-26-1521.stl')
-bMotorGear.export_stl('bMotorGear2023-06-26-1521.stl')
-bWMotorGear.export_stl('bWMGear2023-06-26-1521.stl')
+# bMotorGear.export_stl('bMotorGear2023-06-26-1521.stl')
+# bWMotorGear.export_stl('bWMGear2023-06-26-1521.stl')
 # frontWheel.export_stl('frontWheel2023-06-26-1521.stl')
-backWheel.export_stl('backWheel2023-06-26-1521.stl')
+# backWheel.export_stl('backWheel2023-06-26-1521.stl')
 # mHolder.export_stl('mHolder2023-06-26-1521.stl')
-chassis.export_stl('chassis2023-06-26-1521.stl')
+# chassis.export_stl('chassis2023-06-26-1521.stl')
 # rAxSupport.export_stl('chassis2023-06-26-1521.stl')
-    # + copy.copy(rod).transformed((0,0,0),(0,27.5,0))\
-    # + copy.copy(rod).transformed((0,0,0),(0,-27.5,0))\
-    # + copy.copy(rod).transformed((0,0,0),(67,22.5,0))\
-    # + copy.copy(rod).transformed((0,0,0),(67,-22.5,0))\
-    # + copy.copy(rod).transformed((0,0,0),(-67,22.5,0))\
-    # + copy.copy(rod).transformed((0,0,0),(-67,-22.5,0))\
-#%%
-bottomCover=Box(153,63,6.5,align=(Align.CENTER, Align.CENTER, Align.MAX)).transformed((0,0,0),(0,0,-6))
-bottomCover=fillet(bottomCover.edges().filter_by(Axis.Z),15)
-bbb=Box(150,60,5,align=(Align.CENTER, Align.CENTER, Align.MAX)).transformed((0,0,0),(0,0,-6))
-bottomCover=bottomCover-fillet(bbb.edges().filter_by(Axis.Z),15)
-bottomCover=(bottomCover-chassis-turningRoom.transformed((0,0,0),(30.75,0,-5)))\
-    -Cylinder(1.2, 50).transformed((0, 0, 0), (0, -20, 0))\
-    -Cylinder(1.2, 50).transformed((0, 0, 0), (0, 20, 0))\
-    -Cylinder(1.2, 50).transformed((0, 0, 0), (-70,0,  0))\
-    -Cylinder(1.2, 50).transformed((0, 0, 0), (70,0,  0))\
-    -Cylinder(bWg_Width+.1,2).transformed((90,0,0),(rearBGearRadAtAngleX,1.5,rearBGearRadAtAngleY))\
-    +frontAxle.transformed((0,0,180),(-28-difference_between_farther_gears,-30,-10.5))\
-    +frontAxle.mirror(Plane.XZ).transformed((0,0,180),(-28-difference_between_farther_gears,30,-10.5))
-# bottomCover.export_stl('bottomCover2023-06-26-1521.stl')
-    # + copy.copy(botRod).transformed((0,0,0),(0,27.5,-4))\
-    # + copy.copy(botRod).transformed((0,0,0),(0,-27.5,-4))\
-    # + copy.copy(botRod).transformed((0,0,0),(67,22.5,-4))\
-    # + copy.copy(botRod).transformed((0,0,0),(67,-22.5,-4))\
-    # + copy.copy(botRod).transformed((0,0,0),(-67,22.5,-4))\
-    # + copy.copy(botRod).transformed((0,0,0),(-67,-22.5,-4))\
-bottomCover
 #%% ### Export the entire car to look at it in another cad file###
-car=chassis+bottomCover
-car
+
 # car.export_step('car2023-06-26-1521.step')
 
 
-# %%
-(.5**2*np.pi)*100
 # %%
