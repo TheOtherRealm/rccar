@@ -1,3 +1,4 @@
+
 /*
   This sketch will create a new access point (with no password).
   It will then launch a new server and print out the IP address
@@ -12,6 +13,7 @@
  */
 #include <SPI.h>
 #include <WiFiNINA.h>
+#include <mbed.h>
 #include "arduino_secrets.h"
 #include <SparkFun_TB6612.h>
 #define AIN1 8
@@ -73,13 +75,13 @@ void setup() {
   Serial.println(ssid);
   // Create open network. Change this line if you want to create an WEP network:
   status = WiFi.beginAP(ssid);
-  Serial.println(status);
   Serial.println(WL_AP_LISTENING);
   Serial.println(WL_NO_SSID_AVAIL);
   Serial.println(WL_SCAN_COMPLETED);
   Serial.println(WL_AP_FAILED);
   Serial.println(WL_DELAY_START_CONNECTION);
   Serial.println(WL_IDLE_STATUS);
+  Serial.println(status);
   // Serial.println();
   // Serial.println();
 
@@ -105,9 +107,9 @@ void setup() {
   printWiFiStatus();
 }
 void loop() {
-  // compare the previous status to the current status
+  // compare the previous WiFi status to the current status
   if (status != WiFi.status()) {
-    // it has changed update the variable
+    // it has changed, update the variable
     status = WiFi.status();
     if (status == WL_AP_CONNECTED) {
       // a device has connected to the AP
@@ -119,7 +121,7 @@ void loop() {
   }
   WiFiClient client = server.available();  // listen for incoming clients
   if (client) {                            // if you get a client,
-    Serial.println("new client");          // print a message out the serial port
+    // Serial.println("new client");          // print a message out the serial port
     String currentLine = "";               // make a String to hold incoming data from the client
     while (client.connected()) {           // loop while the client's connected
       if (client.available()) {            // if there's bytes to read from the client,
@@ -199,7 +201,7 @@ void loop() {
     </script>
 </body>
 </html>)EOF";
-            // the content of the HTTP response follows the header:
+            // the content of the HTTP in the previus variable:
             client.print(pageHTML);
             // The HTTP response ends with another blank line:
             client.println();
@@ -211,7 +213,7 @@ void loop() {
         } else if (c != '\r') {  // if you got anything else but a carriage return character,
           currentLine += c;      // add it to the end of the currentLine
         }
-        // Check to see if the client request was "GET /f" or "GET /b" (f=front; b=back):
+        // Check to see if the client request was "GET /f" or "GET /b" (f=front; b=back) or "GET /r" or "GET /l" (r=right; l=left):
         if (currentLine.endsWith("GET /f")) {
           rMotorState = 1;
           Serial.println("Forward");
@@ -220,37 +222,43 @@ void loop() {
           //and optional duration.  A negative speed will cause it to go
           //backwards.  Speed can be from -255 to 255.  Also use of the
           //brake function which takes no arguements.
-          motor2.drive(255, 1000);
+          motor1.drive(255);
         } else if (currentLine.endsWith("GET /b")) {
           rMotorState = 0;
           Serial.println("Back " + rMotorState);
+          digitalWrite(led, HIGH);  // Movement turns the LED on
           //Use of the drive function which takes as arguements the speed
           //and optional duration.  A negative speed will cause it to go
           //backwards.  Speed can be from -255 to 255.  Also use of the
           //brake function which takes no arguements.
-          motor2.drive(-255, 1000);
+          motor1.drive(-255);
         } else if (currentLine.endsWith("GET /s")) {
-          digitalWrite(led, LOW);  // GET /b turns the LED off
-          motor2.brake();
+          Serial.println("Stop");
+          digitalWrite(led, LOW);  // GET /s turns the LED off
+          motor1.brake();          // Stops the moter
         }
         if (currentLine.endsWith("GET /l")) {
           rMotorState = 1;
           Serial.println("left");
+          digitalWrite(led, HIGH);  // Movement turns the LED on
           //Use of the drive function which takes as arguements the speed
           //and optional duration.  A negative speed will cause it to go
           //backwards.  Speed can be from -255 to 255.  Also use of the
           //brake function which takes no arguements.
-          motor1.drive(255, 1000);
+          motor2.drive(255);
         } else if (currentLine.endsWith("GET /r")) {
           rMotorState = 0;
           Serial.println("right " + rMotorState);
+          digitalWrite(led, HIGH);  // Movement turns the LED on
           //Use of the drive function which takes as arguements the speed
           //and optional duration.  A negative speed will cause it to go
           //backwards.  Speed can be from -255 to 255.  Also use of the
           //brake function which takes no arguements.
-          motor1.drive(-255, 1000);
+          motor2.drive(-255);
         } else if (currentLine.endsWith("GET /s")) {
-          motor1.brake();
+          Serial.println("Stop");
+          digitalWrite(led, LOW);  // GET /s turns the LED off
+          motor2.brake();          // Stops the moter
         }
       }
     }
