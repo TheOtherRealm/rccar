@@ -47,7 +47,6 @@ from cq_gears import (SpurGear, HerringboneGear, RackGear, HerringboneRackGear,
                       PlanetaryGearset, HerringbonePlanetaryGearset,
                       BevelGearPair, Worm, CrossedGearPair, HyperbolicGearPair,
                       RingGear, HerringboneRingGear, BevelGear)
-from cq_gears import SpurGear, HerringboneGear, RackGear, HerringboneRackGear
 from math import pi
 import copy
 plt.rcParams['figure.figsize'] = [9, 9]
