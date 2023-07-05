@@ -9,19 +9,20 @@
 	padding: 0;
 	color:black;
 }
-h1,h2,h3,h4{
-	font-family: 'Times New Roman', Times, serif;
-	line-height: normal;
-	color:black;
-}
+
 .CodeMirror-lines,.CodeMirror {
 	font-family:monospace;
 }
 p{
-	font-family: 'Times New Roman', Times, serif;
+	font-family: STIXMathJax_Normal, 'Times New Roman', Times, serif;
 	line-height: normal;
 	color:black;
 }
 /* img{
 	width: 35%;
 } */
+h1,h2,h3,h4{
+	font-family: STIXMathJax_Normal, 'Times New Roman', Times, serif;
+	line-height: normal;
+	color:black;
+}

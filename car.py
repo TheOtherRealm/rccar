@@ -267,8 +267,27 @@ chassis=chassis\
     +copy.copy(frontWheel).transformed((90,0,0),(-65.5-difference_between_farther_gears,50,-3))\
     +copy.copy(frontWheel).transformed((-90,0,0),(-65.5-difference_between_farther_gears,-50,-3))
 chassis
+#%% ###Because we are not going to be able to print the entire car in pre-assembled form, we need to export each individual component.  We also need to create a new chassis object that contains only the parts intended to be printed. The export lines are commented out so that we don't keep replacing the already exported parts.###
+chassisExp =Box(length=218, width=63, height=7.5, align=alignBox).transformed((180,0,0),(0,0,1.5))
+chassisExp=fillet(chassisExp.edges().filter_by(Axis.Z),15)
+bb=Box(length=215,width=60,height=6,align=alignBox).transformed((180,0,0),(0,0,0))
+chassisExp=chassisExp-fillet(bb.edges().filter_by(Axis.Z),15)
+chassisExp=chassisExp\
+    - holes\
+    - Cylinder(1.2, 20).transformed((0, 0, 0), (-70, 0, -6.5))\
+    - Cylinder(1.25,20).transformed((0,0,0),(-70-difference_between_farther_gears,0, -7))\
+    - turningRoom.transformed((0,0,0),(45.75,0,-6))\
+    -rAxle.transformed((90,0,0),(rearBGearRadAtAngleX,2.5,rearBGearRadAtAngleY))\
+    - Cylinder(1.2,20).transformed((0,0,0),(-70-difference_between_farther_gears,0, -7))\
+    -rAxSupportHoles.transformed((0,0,0),(0,16.5,0))\
+    -rAxSupportHoles.transformed((0,0,0),(0,-16.5,0))\
+    -Box(35,6,10).transformed((0,0,0), (rearBGearRadAtAngleX,2,1.5))\
+    + extrude(Plane(chassisExp.faces().sort_by(Axis.Z)[0])*Rot(x=0,z=90)*Text("UMass",font_size=12,align=(Align.CENTER,Align.CENTER,Align.MIN)),.3).transformed((0,0,0),(-15,0,3))\
+    + extrude(Plane(chassisExp.faces().sort_by(Axis.Z)[0])*Rot(x=0,z=90)*Text("SENGI",font_size=10,align=(Align.CENTER,Align.CENTER,Align.MIN)),.3).transformed((0,0,0),(-5,0,3))\
+    + extrude(Plane(chassisExp.faces().sort_by(Axis.Z)[0])*Rot(x=0,z=90)*Text("2023",font_size=10,align=(Align.CENTER,Align.CENTER,Align.MIN)),.6).transformed((0,0,0),(5,0,3))
+chassisExp
 # bWMotorGear.export_stl('bWMGear2023-06-26-1521.stl')
-# rMotorAssemb.export_stl('rMotorAssemb2023-06-07-1405.stl')
+# rMotorAssembWithoutMotor.export_stl('rMotorAssemb2023-06-07-1405.stl')
 # motorGear.export_stl('motorGear2023-06-26-1521.stl')
 # (ratioGear.transformed((0,0,0),(0, 0, -2))+smallGear.transformed((0,0,0),(0, 0, -6))).export_stl('ratioGear2023-06-26-1521.stl')
 # turnGear.export_stl('turningGear2023-06-26-1521.stl')
@@ -282,11 +301,6 @@ chassis
 # frontWheel.export_stl('frontWheel2023-06-26-1521.stl')
 # backWheel.export_stl('backWheel2023-06-26-1521.stl')
 # mHolder.export_stl('mHolder2023-06-26-1521.stl')
-# chassis.export_stl('chassis2023-06-26-1521.stl')
-# rAxSupport.export_stl('chassis2023-06-26-1521.stl')
-#%% ### Export the entire car to look at it in another cad file###
-
-# car.export_step('car2023-06-26-1521.step')
-
-
+# chassisExp.export_stl('chassis2023-06-26-1521.stl')
+# rAxSupport.export_stl('chassisExp2023-06-26-1521.stl')
 # %%

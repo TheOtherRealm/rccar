@@ -38,8 +38,9 @@ Motor motor1 = Motor(AIN1, AIN2, PWMA, offsetA, STBY);
 Motor motor2 = Motor(BIN1, BIN2, PWMB, offsetB, STBY);
 int rMotorControl = 9;
 int fMotorControl = 10;
-int rMotorState = 0;
-int fMotorState = 0;
+int rMotorState = 's';
+int fMotorState = 's';
+int statusUpdate = 0;
 WiFiServer server(80);
 void setup() {
   //Initialize serial and wait for port to open:
@@ -74,7 +75,7 @@ void setup() {
   Serial.print("Creating access point named: ");
   Serial.println(ssid);
   // Create open network. Change this line if you want to create an WEP network:
-  status = WiFi.beginAP(ssid);
+  status = WiFi.beginAP(ssid, 1);
   Serial.println(WL_AP_LISTENING);
   Serial.println(WL_NO_SSID_AVAIL);
   Serial.println(WL_SCAN_COMPLETED);
@@ -105,6 +106,8 @@ void setup() {
   server.begin();
   // you're connected now, so print out the status
   printWiFiStatus();
+  statusUpdate = 0;
+  Serial.println(status);
 }
 void loop() {
   // compare the previous WiFi status to the current status
@@ -122,10 +125,10 @@ void loop() {
   WiFiClient client = server.available();  // listen for incoming clients
   if (client) {                            // if you get a client,
     // Serial.println("new client");          // print a message out the serial port
-    String currentLine = "";               // make a String to hold incoming data from the client
-    while (client.connected()) {           // loop while the client's connected
-      if (client.available()) {            // if there's bytes to read from the client,
-        char c = client.read();            // read a byte, then
+    String currentLine = "";      // make a String to hold incoming data from the client
+    while (client.connected()) {  // loop while the client's connected
+      if (client.available()) {   // if there's bytes to read from the client,
+        char c = client.read();   // read a byte, then
         // Serial.write(c);                   // print it out the serial monitor
         if (c == '\n') {  // if the byte is a newline character
           // if the current line is blank, you got two newline characters in a row.
@@ -215,30 +218,31 @@ void loop() {
         }
         // Check to see if the client request was "GET /f" or "GET /b" (f=front; b=back) or "GET /r" or "GET /l" (r=right; l=left):
         if (currentLine.endsWith("GET /f")) {
-          rMotorState = 1;
+          rMotorState = 'f';
           Serial.println("Forward");
           digitalWrite(led, HIGH);  // Movement turns the LED on
           //Use of the drive function which takes as arguements the speed
           //and optional duration.  A negative speed will cause it to go
           //backwards.  Speed can be from -255 to 255.  Also use of the
           //brake function which takes no arguements.
-          motor1.drive(255);
+          motor1.drive(-255);
         } else if (currentLine.endsWith("GET /b")) {
-          rMotorState = 0;
-          Serial.println("Back " + rMotorState);
+          rMotorState = 'b';
+          Serial.println("Back ");
           digitalWrite(led, HIGH);  // Movement turns the LED on
           //Use of the drive function which takes as arguements the speed
           //and optional duration.  A negative speed will cause it to go
           //backwards.  Speed can be from -255 to 255.  Also use of the
           //brake function which takes no arguements.
-          motor1.drive(-255);
+          motor1.drive(255);
         } else if (currentLine.endsWith("GET /s")) {
+          rMotorState = 's';
           Serial.println("Stop");
           digitalWrite(led, LOW);  // GET /s turns the LED off
           motor1.brake();          // Stops the moter
         }
         if (currentLine.endsWith("GET /l")) {
-          rMotorState = 1;
+          fMotorState = 'l';
           Serial.println("left");
           digitalWrite(led, HIGH);  // Movement turns the LED on
           //Use of the drive function which takes as arguements the speed
@@ -247,7 +251,7 @@ void loop() {
           //brake function which takes no arguements.
           motor2.drive(255);
         } else if (currentLine.endsWith("GET /r")) {
-          rMotorState = 0;
+          fMotorState = 'r';
           Serial.println("right " + rMotorState);
           digitalWrite(led, HIGH);  // Movement turns the LED on
           //Use of the drive function which takes as arguements the speed
@@ -256,17 +260,67 @@ void loop() {
           //brake function which takes no arguements.
           motor2.drive(-255);
         } else if (currentLine.endsWith("GET /s")) {
+          fMotorState = 's';
           Serial.println("Stop");
           digitalWrite(led, LOW);  // GET /s turns the LED off
           motor2.brake();          // Stops the moter
         }
       }
     }
+
     // close the connection:
     client.stop();
     Serial.println("client disconnected");
+    Serial.println(statusUpdate%50000);
   } else {
-    // Serial.println(status);
+    if ((statusUpdate!%50000)) {
+      Serial.println(status);
+      if (rMotorState == 's') {
+        digitalWrite(led, LOW);  // GET /s turns the LED off
+        motor1.brake();          // Stops the moter
+      }
+      statusUpdate = 0;
+    } else {
+      statusUpdate++;
+    }
+    if (rMotorState == 'f') {
+      digitalWrite(led, HIGH);  // Movement turns the LED on
+      //Use of the drive function which takes as arguements the speed
+      //and optional duration.  A negative speed will cause it to go
+      //backwards.  Speed can be from -255 to 255.  Also use of the
+      //brake function which takes no arguements.
+      motor1.drive(-255);
+    } else if (rMotorState == 'b') {
+      digitalWrite(led, HIGH);  // Movement turns the LED on
+      //Use of the drive function which takes as arguements the speed
+      //and optional duration.  A negative speed will cause it to go
+      //backwards.  Speed can be from -255 to 255.  Also use of the
+      //brake function which takes no arguements.
+      motor1.drive(255);
+    } else if (rMotorState == 's') {
+      digitalWrite(led, LOW);  // GET /s turns the LED off
+      motor1.brake();          // Stops the moter
+    }
+    if (rMotorState == 'l') {
+      Serial.println("left");
+      digitalWrite(led, HIGH);  // Movement turns the LED on
+      //Use of the drive function which takes as arguements the speed
+      //and optional duration.  A negative speed will cause it to go
+      //backwards.  Speed can be from -255 to 255.  Also use of the
+      //brake function which takes no arguements.
+      motor2.drive(255);
+    } else if (rMotorState == 'r') {
+      Serial.println("right ");
+      digitalWrite(led, HIGH);  // Movement turns the LED on
+      //Use of the drive function which takes as arguements the speed
+      //and optional duration.  A negative speed will cause it to go
+      //backwards.  Speed can be from -255 to 255.  Also use of the
+      //brake function which takes no arguements.
+      motor2.drive(-255);
+    } else if (rMotorState == 's') {
+      digitalWrite(led, LOW);  // GET /s turns the LED off
+      motor2.brake();          // Stops the moter
+    }
   }
 }
 void rMotor(int dir, int state) {
