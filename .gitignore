@@ -194,3 +194,4 @@ Modules/
 *.stl
 *.step
 *.STEP
+.pio/build/project.checksum

@@ -273,9 +273,9 @@ void loop() {
     Serial.println("client disconnected");
     Serial.println(statusUpdate%50000);
   } else {
-    if ((statusUpdate!%50000)) {
+    if ((statusUpdate==50000)) {
       Serial.println(status);
-      if (rMotorState == 's') {
+      if (rMotorState == 's' || fMotorState == 's') {
         digitalWrite(led, LOW);  // GET /s turns the LED off
         motor1.brake();          // Stops the moter
       }
