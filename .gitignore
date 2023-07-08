@@ -195,3 +195,6 @@ Modules/
 *.step
 *.STEP
 .pio/build/project.checksum
+.vscode/launch.json
+.vscode/c_cpp_properties.json
+.pio/build/nanorp2040connect/idedata.json
