@@ -35,6 +35,8 @@ This will activate the newly created development environment
 -- There are a few libraries that can't be installed using the `micromamba` command, for these, we need to use pip, the "Python Package Index"    
 There is a file called `pip.sh`.  Open that and copy its contents and past it into the terminal.  One it is done, we should be all set!  
 
+-- Now we need to make some changes to the VS Code `settings.json` file so that the application knows where to find python.  This will depend on the OS, I will help you figure out where it is individually     
+
 -- Now open the file called `car.ipynb`  
 Put the curser in the first code box and press Shift+Enter  
 Repeat this to run the other code blocks and see the 3D models that are output.  
