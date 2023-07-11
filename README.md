@@ -16,19 +16,25 @@ https://www.geeksforgeeks.org/python-programming-language/#
 We will be using Arduino for our project (under the /car.ino folder)
 You can learn more about that at: https://www.arduino.cc/
 
-## Setting things up
+## Setting things up  
+Install Visual Studio Code: https://code.visualstudio.com/#alt-downloads  
+Install git: https://git-scm.com/download/win  
 
-### Once you have installed VS Code...
---Press Ctrl+Shift+\` or Cmd+Shift+\`. The \` button is the one to the left of the 1 key
+### Once you have installed VS Code and git...
+-- Press Ctrl+Shift+\` or Cmd+Shift+\`. The \` button is the one to the left of the 1 key
 This will open a terminal window  
---Then copy and paste into the terminal  
+-- Then copy and paste into the terminal  
 `./micromamba.exe shell hook -s powershell | Out-String | Invoke-Expression`  
 This will activate Micro Mamba, a self-contained python environment  
---Then run:  
+-- Then run:  
 `micromamba create -f environment.yml`  
 This will install most of the necessary libraries.  
---Then run  
+-- Then run  
 `micromamba activate car `  
-This will activate the newly created development enviroment  
---There are a few libraries that can't be installed using the `micromamba` command, for these, we need to use pip, the "Python Package Index"    
+This will activate the newly created development environment  
+-- There are a few libraries that can't be installed using the `micromamba` command, for these, we need to use pip, the "Python Package Index"    
 There is a file called `pip.sh`.  Open that and copy its contents and past it into the terminal.  One it is done, we should be all set!  
+
+-- Now open the file called `car.ipynb`  
+Put the curser in the first code box and press Shift+Enter  
+Repeat this to run the other code blocks and see the 3D models that are output.  
