@@ -19,11 +19,16 @@ You can learn more about that at: https://www.arduino.cc/
 ## Setting things up
 
 ### Once you have installed VS Code...
-Press Ctrl+Shift+\` or Cmd+Shift+\`. The \` button is the one to the left of the 1 key
-This will open a terminal window
-Then copy and paste into the terminal
-`./micromamba.exe shell hook -s powershell | Out-String | Invoke-Expression`
-This will activate Micro Mamba, a self-contained python environment
-Then run:
-`micromamba create -f environment.yml`
-This will install all the necessary
+--Press Ctrl+Shift+\` or Cmd+Shift+\`. The \` button is the one to the left of the 1 key
+This will open a terminal window  
+--Then copy and paste into the terminal  
+`./micromamba.exe shell hook -s powershell | Out-String | Invoke-Expression`  
+This will activate Micro Mamba, a self-contained python environment  
+--Then run:  
+`micromamba create -f environment.yml`  
+This will install most of the necessary libraries.  
+--Then run  
+`micromamba activate car `  
+This will activate the newly created development enviroment  
+--There are a few libraries that can't be installed using the `micromamba` command, for these, we need to use pip, the "Python Package Index"    
+There is a file called `pip.sh`.  Open that and copy its contents and past it into the terminal.  One it is done, we should be all set!  
