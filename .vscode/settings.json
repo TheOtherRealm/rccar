@@ -1,27 +1,27 @@
 {
 	"editor.wordWrap": "on",
 	"python.autoComplete.extraPaths": [
-		"C:\\Users\\Someone\\micromamba\\envs\\car",
-		"C:\\Users\\Someone\\micromamba\\pkgs"
+		"C:\\Users\\aaron\\micromamba\\envs\\car",
+		"C:\\Users\\aaron\\micromamba\\pkgs"
 	],
 	"python.analysis.extraPaths": [
-		"c:\\Users\\Someone\\.vscode\\extensions\\roipoussiere.cadquery-0.1.3\\stubs",
-		"C:\\Users\\Someone\\micromamba\\envs\\car",
-		"C:\\Users\\Someone\\micromamba\\pkgs"
+		"c:\\Users\\aaron\\.vscode\\extensions\\roipoussiere.cadquery-0.1.3\\stubs",
+		"C:\\Users\\aaron\\micromamba\\envs\\car",
+		"C:\\Users\\aaron\\micromamba\\pkgs"
 	],
-	"python.defaultInterpreterPath": "C:\\Users\\Someone\\micromamba\\envs\\car\\python.exe",
+	"python.defaultInterpreterPath": "C:\\Users\\aaron\\micromamba\\envs\\car\\python.exe",
 	"python.linting.pycodestyleEnabled": false,
 	"python.linting.enabled": false,
 	"python.analysis.autoImportCompletions": true,
 	"python.linting.pylintArgs": [
 		"--init-hook",
-		"import sys; sys.path.append('C:\\Users\\Someone\\micromamba\\envs\\car')",
+		"import sys; sys.path.append('C:\\Users\\aaron\\micromamba\\envs\\car')",
 		"--init-hook",
-		"import sys; sys.path.append('C:\\Users\\Someone\\micromamba\\pkgs')"
+		"import sys; sys.path.append('C:\\Users\\aaron\\micromamba\\pkgs')"
 	],
 	"python.terminal.activateEnvironment": true,
-	"matlab-formatter.pythonPath": "C:\\Users\\Someone\\micromamba\\envs\\car\\",
-	"matlab-interactive-terminal.pythonPath": "C:\\Users\\Someone\\micromamba\\envs\\car\\",
+	"matlab-formatter.pythonPath": "C:\\Users\\aaron\\micromamba\\envs\\car\\",
+	"matlab-interactive-terminal.pythonPath": "C:\\Users\\aaron\\micromamba\\envs\\car\\",
 	"cmake.configureOnOpen": true,
 	"files.autoSave": "afterDelay",
 	"python.analysis.typeCheckingMode": "off",
