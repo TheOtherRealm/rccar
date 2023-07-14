@@ -8,15 +8,15 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "C:/Develop/rccar/include",
-                "C:/Develop/rccar/src",
+                "c:/Develop/rccar/include",
+                "c:/Develop/rccar/src",
                 ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "C:/Develop/rccar/include",
-                    "C:/Develop/rccar/src",
+                    "c:/Develop/rccar/include",
+                    "c:/Develop/rccar/src",
                     ""
                 ]
             },
@@ -27,7 +27,7 @@
                 "ARDUINO_ARCH_RP2040",
                 ""
             ],
-            "compilerPath": "C:/Users/aaron/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe",
+            "compilerPath": "C:/Users/Someone/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe",
             "compilerArgs": [
                 "-mthumb",
                 "-mcpu=cortex-m0plus",
