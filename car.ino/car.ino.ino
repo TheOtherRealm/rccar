@@ -45,9 +45,7 @@ WiFiServer server(80);
 void setup() {
   //Initialize serial and wait for port to open:
   Serial.begin(9600);
-  while (!Serial) {
-    ;  // wait for serial port to connect. Needed for native USB port only
-  }
+  Serial.setTimeout(200);
   Serial.print("Access Point Web Server ssid: ");
   Serial.print(ssid);
   Serial.print("and pswrd: ");
@@ -273,9 +271,9 @@ void loop() {
     Serial.println("client disconnected");
     Serial.println(statusUpdate%50000);
   } else {
-    if ((statusUpdate!%50000)) {
+    if ((statusUpdate==50000)) {
       Serial.println(status);
-      if (rMotorState == 's') {
+      if (rMotorState == 's' || fMotorState == 's') {
         digitalWrite(led, LOW);  // GET /s turns the LED off
         motor1.brake();          // Stops the moter
       }
