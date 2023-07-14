@@ -1,0 +1,39 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "C:/Develop/rccar/include",
+                "C:/Develop/rccar/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "C:/Develop/rccar/include",
+                    "C:/Develop/rccar/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "F_CPU=133000000L",
+                "PLATFORMIO=60109",
+                "ARDUINO_NANO_RP2040_CONNECT",
+                "ARDUINO_ARCH_RP2040",
+                ""
+            ],
+            "compilerPath": "C:/Users/aaron/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc.exe",
+            "compilerArgs": [
+                "-mthumb",
+                "-mcpu=cortex-m0plus",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}

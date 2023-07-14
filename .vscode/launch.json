@@ -9,13 +9,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
-        },
-        {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
