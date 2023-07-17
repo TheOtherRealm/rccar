@@ -2,6 +2,24 @@ This is the link to the motor driver info: https://learn.sparkfun.com/tutorials/
 
 Here is where you can download the necessary library for the motor driver to work: https://github.com/sparkfun/SparkFun_TB6612FNG_Arduino_Library/archive/master.zip
 
+Here is a table of connections from Ardiuno 
+```
+Motor Driver	Arduino  
+AIN1		D8  
+BIN1		D5  
+AIN2		D9  
+BIN2		D4  
+PWMA  	        D10  
+PWMB	        D3  
+STBY		D7  
+GND		GND  
+VCC		5V  
+--Connect to battery—  
+Motor Driver	Battery  
+VM		Positive/Red  
+GND		Negative/Black  
+```
+
 <h1 style="text-align:center">Car CAD Code!</h1>
 <p  style="text-align:center">The code that was used to generate the CAD files used in the 3D printer</p>
 
