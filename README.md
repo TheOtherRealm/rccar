@@ -1,3 +1,5 @@
+This is the link to the motor driver info: https://learn.sparkfun.com/tutorials/tb6612fng-hookup-guide
+
 <h1 style="text-align:center">Car CAD Code!</h1>
 <p  style="text-align:center">The code that was used to generate the CAD files used in the 3D printer</p>
 
