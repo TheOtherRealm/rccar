@@ -166,18 +166,6 @@ dist
 nbproject/private/
 .history/
 .vagrant/
-laradock/
-laradock
-nextcloud/
-manager_token
-worker_token
-formatTest.json
-nextcloudLogs/
-1/logs/server/error.log
-1/logs/server/main.log
-runMe.env
-servercoop/runMe.env
-otherrealm.org-drupal/
 env/
 geomdl-examples-master/
 cq_warehouse/
@@ -193,6 +181,6 @@ oldStuff/
 
 #Filter out things that are auto generated
 .pio/build/project.checksum
-.vscode/launch.json
-.vscode/c_cpp_properties.json
+.vscode/
 .pio/build/nanorp2040connect/idedata.json
+.vscode/settings.json

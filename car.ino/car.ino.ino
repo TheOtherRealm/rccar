@@ -24,9 +24,7 @@
 #define PWMB 3
 #define STBY 7
 ///////Put the WiFi network info in the secret tab (arduino_secrets.h)
-char ssid[] = SECRET_SSID;  // your network SSID (name)
-char pass[] = SECRET_PASS;  // your network password (use for WPA, or use as key for WEP)
-int keyIndex = 0;           // your network key Index number (needed only for WEP)
+char ssid[] = SECRET_SSID;  // The network SSID (name)
 int led = LED_BUILTIN;
 int status = WL_IDLE_STATUS;
 // these constants are used to allow you to make your motor configuration
@@ -66,13 +64,9 @@ void setup() {
     Serial.println("Please upgrade the firmware");
   }
   // by default the local IP address of will be 192.168.4.1
-  // you can override it with the following:
-  // WiFi.config(IPAddress(10, 0, 0, 1));
-  // print the network name (SSID);
-  // WiFi.config(IPAddress(10, 0, 4, 1));
   Serial.print("Creating access point named: ");
   Serial.println(ssid);
-  // Create open network. Change this line if you want to create an WEP network:
+  // Create open network and print some status indicators for debuging
   status = WiFi.beginAP(ssid, 1);
   Serial.println(WL_AP_LISTENING);
   Serial.println(WL_NO_SSID_AVAIL);
@@ -81,26 +75,22 @@ void setup() {
   Serial.println(WL_DELAY_START_CONNECTION);
   Serial.println(WL_IDLE_STATUS);
   Serial.println(status);
-  // Serial.println();
-  // Serial.println();
 
   while (status == WL_AP_FAILED) {
     Serial.println("Creating access point failed");
     status = WiFi.beginAP(ssid);
     Serial.println(status);
-    // don't continue
+    // Uncoment this to make the code not continue if wifi can't be set up
     // while (true);
   }
-
   if (status != WL_AP_LISTENING) {
     Serial.println("Creating access point failed");
-    // don't continue
-    while (true)
-      ;
+    // This makes the code not continue if wifi can't be set up
+    while (true);
   }
   delay(10000);
   // wait 10 seconds for connection:
-  // start the web server on port 80
+  // start the web server on port 80 (http)
   server.begin();
   // you're connected now, so print out the status
   printWiFiStatus();
@@ -214,6 +204,9 @@ void loop() {
         } else if (c != '\r') {  // if you got anything else but a carriage return character,
           currentLine += c;      // add it to the end of the currentLine
         }
+///////////////////////
+//This is where the code for controlling the motors starts!!!
+///////////////////////
         // Check to see if the client request was "GET /f" or "GET /b" (f=front; b=back) or "GET /r" or "GET /l" (r=right; l=left):
         if (currentLine.endsWith("GET /f")) {
           rMotorState = 'f';
@@ -265,7 +258,6 @@ void loop() {
         }
       }
     }
-
     // close the connection:
     client.stop();
     Serial.println("client disconnected");
