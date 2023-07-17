@@ -1,5 +1,7 @@
 This is the link to the motor driver info: https://learn.sparkfun.com/tutorials/tb6612fng-hookup-guide
 
+Here is where you can download the necessary library for the motor driver to work: https://github.com/sparkfun/SparkFun_TB6612FNG_Arduino_Library/archive/master.zip
+
 <h1 style="text-align:center">Car CAD Code!</h1>
 <p  style="text-align:center">The code that was used to generate the CAD files used in the 3D printer</p>
 
